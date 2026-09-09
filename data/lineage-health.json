@@ -1,60 +1,60 @@
 {
-  "generated_at": null,
+  "generated_at": "2026-09-09T22:09:25.705Z",
   "summary": {
     "total": 7,
-    "reachable": 0,
+    "reachable": 7,
     "unreachable": 0,
-    "unknown": 7
+    "unknown": 0
   },
   "sources": [
     {
       "id": "us10y",
-      "status": "unknown",
-      "http_status": null,
-      "latency_ms": null,
-      "checked_at": null
+      "status": "reachable",
+      "http_status": 200,
+      "latency_ms": 137,
+      "checked_at": "2026-09-09T22:09:21.328Z"
     },
     {
       "id": "ecb",
-      "status": "unknown",
-      "http_status": null,
-      "latency_ms": null,
-      "checked_at": null
+      "status": "reachable",
+      "http_status": 200,
+      "latency_ms": 711,
+      "checked_at": "2026-09-09T22:09:22.290Z"
     },
     {
       "id": "boe",
-      "status": "unknown",
-      "http_status": null,
-      "latency_ms": null,
-      "checked_at": null
+      "status": "reachable",
+      "http_status": 200,
+      "latency_ms": 714,
+      "checked_at": "2026-09-09T22:09:23.255Z"
     },
     {
       "id": "boc",
-      "status": "unknown",
-      "http_status": null,
-      "latency_ms": null,
-      "checked_at": null
+      "status": "reachable",
+      "http_status": 200,
+      "latency_ms": 132,
+      "checked_at": "2026-09-09T22:09:23.637Z"
     },
     {
       "id": "rba",
-      "status": "unknown",
-      "http_status": null,
-      "latency_ms": null,
-      "checked_at": null
+      "status": "reachable",
+      "http_status": 200,
+      "latency_ms": 489,
+      "checked_at": "2026-09-09T22:09:24.377Z"
     },
     {
       "id": "riksbank",
-      "status": "unknown",
-      "http_status": null,
-      "latency_ms": null,
-      "checked_at": null
+      "status": "reachable",
+      "http_status": 200,
+      "latency_ms": 513,
+      "checked_at": "2026-09-09T22:09:25.139Z"
     },
     {
       "id": "global-yields",
-      "status": "unknown",
-      "http_status": null,
-      "latency_ms": null,
-      "checked_at": null
+      "status": "reachable",
+      "http_status": 200,
+      "latency_ms": 66,
+      "checked_at": "2026-09-09T22:09:25.454Z"
     }
   ]
 }
