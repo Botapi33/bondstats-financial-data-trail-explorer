@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": "us10y",
+      "title": "United States 10-Year Treasury Yield",
+      "code": "RATES / US / 10Y / SOVEREIGN",
+      "category": "Rates",
+      "authority": "Federal Reserve / FRED",
+      "series": "DGS10",
+      "source_url": "https://fred.stlouisfed.org/series/DGS10",
+      "health_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+      "dataset": "global_yields.json",
+      "downstream": "Markets + stress tools"
+    },
+    {
+      "id": "ecb",
+      "title": "ECB Deposit Facility Rate",
+      "code": "CENTRAL BANK / ECB / POLICY RATE",
+      "category": "Central Banks",
+      "authority": "European Central Bank",
+      "series": "Deposit facility rate",
+      "source_url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+      "health_url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+      "dataset": "central-bank policy dataset",
+      "downstream": "Central Bank Watch"
+    },
+    {
+      "id": "boe",
+      "title": "Bank of England Bank Rate",
+      "code": "CENTRAL BANK / BOE / BANK RATE",
+      "category": "Central Banks",
+      "authority": "Bank of England",
+      "series": "Bank Rate",
+      "source_url": "https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp",
+      "health_url": "https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp",
+      "dataset": "central-bank policy dataset",
+      "downstream": "Central Bank Watch"
+    },
+    {
+      "id": "boc",
+      "title": "Bank of Canada Policy Rate",
+      "code": "CENTRAL BANK / BOC / POLICY RATE",
+      "category": "Central Banks",
+      "authority": "Bank of Canada",
+      "series": "Policy interest rate",
+      "source_url": "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/",
+      "health_url": "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/",
+      "dataset": "central-bank policy dataset",
+      "downstream": "Central Bank Watch"
+    },
+    {
+      "id": "rba",
+      "title": "Reserve Bank of Australia Cash Rate",
+      "code": "CENTRAL BANK / RBA / CASH RATE",
+      "category": "Central Banks",
+      "authority": "Reserve Bank of Australia",
+      "series": "Cash Rate Target",
+      "source_url": "https://www.rba.gov.au/statistics/cash-rate/",
+      "health_url": "https://www.rba.gov.au/statistics/cash-rate/",
+      "dataset": "central-bank policy dataset",
+      "downstream": "Central Bank Watch"
+    },
+    {
+      "id": "riksbank",
+      "title": "Riksbank Policy Rate",
+      "code": "CENTRAL BANK / SE / POLICY RATE",
+      "category": "Central Banks",
+      "authority": "Sveriges Riksbank",
+      "series": "Policy rate",
+      "source_url": "https://www.riksbank.se/en-gb/statistics/search-interest--exchange-rates/",
+      "health_url": "https://www.riksbank.se/en-gb/statistics/search-interest--exchange-rates/",
+      "dataset": "central-bank policy dataset",
+      "downstream": "Central Bank Watch"
+    },
+    {
+      "id": "global-yields",
+      "title": "BondStats Global Sovereign Yield Dataset",
+      "code": "BONDSTATS / GLOBAL / YIELDS",
+      "category": "Dataset",
+      "authority": "BondStats",
+      "series": "global_yields.json",
+      "source_url": "https://botapi33.github.io/bondstats-global-yields/global_yields.json",
+      "health_url": "https://botapi33.github.io/bondstats-global-yields/global_yields.json",
+      "dataset": "global_yields.json",
+      "downstream": "Yield, spread and stress tools"
+    }
+  ]
+}

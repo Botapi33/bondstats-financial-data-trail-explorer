@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Trace financial data from official source to BondStats dataset and downstream use.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#070908">
+  <title>Financial Data Trail Explorer | BondStats</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="https://www.bondstats.org/" rel="noopener">BONDSTATS</a>
+    <div class="topbar-meta">FINANCIAL DATA TRAIL EXPLORER</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">DATA PROVENANCE / LINEAGE</div>
+      <h1>Trace Financial Data<br>from Source to Signal.</h1>
+      <p>
+        Follow the path from an official public source through validation, normalization,
+        BondStats datasets and downstream market tools. The explorer focuses on provenance,
+        dependencies and operational source health rather than reproducing third-party content.
+      </p>
+
+      <div class="controls">
+        <label class="search">
+          <span>SEARCH</span>
+          <input id="searchInput" type="search" placeholder="US 10Y, ECB, Bank Rate…" autocomplete="off">
+        </label>
+        <button id="traceBtn" class="mode active" type="button">Trace mode</button>
+        <button id="impactBtn" class="mode" type="button">Dependency map</button>
+      </div>
+    </section>
+
+    <section class="healthbar" aria-label="Source health status">
+      <div><span>PIPELINE HEALTH</span><strong id="healthState">loading…</strong></div>
+      <div><span>LAST CHECK</span><strong id="healthChecked">—</strong></div>
+      <div><span>SOURCES</span><strong id="healthCount">—</strong></div>
+      <div><span>CHECK TYPE</span><strong>endpoint availability</strong></div>
+    </section>
+
+    <section class="workspace">
+      <div class="canvas-panel">
+        <div class="canvas-head">
+          <div>
+            <div class="micro">ACTIVE TRAIL</div>
+            <h2 id="trailTitle">Loading…</h2>
+          </div>
+          <div id="trailCode" class="trail-code">—</div>
+        </div>
+
+        <div id="graph" class="graph" aria-live="polite"></div>
+
+        <div class="legend">
+          <span><i class="dot official"></i>Official / primary</span>
+          <span><i class="dot derived"></i>Derived / transformed</span>
+          <span><i class="dot output"></i>BondStats output</span>
+        </div>
+      </div>
+
+      <aside class="inspector">
+        <div class="micro">NODE INSPECTOR</div>
+        <div id="inspectorBody"></div>
+      </aside>
+    </section>
+
+    <section class="catalog">
+      <div class="section-head">
+        <div>
+          <div class="micro">LINEAGE CATALOG</div>
+          <h2>Mapped trails</h2>
+        </div>
+        <div id="resultCount" class="count">0 trails</div>
+      </div>
+      <div id="catalogRows" class="catalog-rows"></div>
+    </section>
+
+    <section class="policy">
+      <div class="micro">DATA & COPYRIGHT POLICY</div>
+      <p>
+        BondStats does not bundle third-party logos, screenshots, charts, branded interfaces,
+        or copied source text in this explorer. External institutions are referenced only by
+        factual source names, identifiers and public URLs. Automated checks record technical
+        endpoint metadata such as availability, HTTP status and check time.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© BondStats Ltd.</span>
+    <span>Data transparency tool. Not investment advice.</span>
+  </footer>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>

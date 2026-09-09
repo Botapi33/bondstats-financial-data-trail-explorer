@@ -1,0 +1,60 @@
+{
+  "generated_at": null,
+  "summary": {
+    "total": 7,
+    "reachable": 0,
+    "unreachable": 0,
+    "unknown": 7
+  },
+  "sources": [
+    {
+      "id": "us10y",
+      "status": "unknown",
+      "http_status": null,
+      "latency_ms": null,
+      "checked_at": null
+    },
+    {
+      "id": "ecb",
+      "status": "unknown",
+      "http_status": null,
+      "latency_ms": null,
+      "checked_at": null
+    },
+    {
+      "id": "boe",
+      "status": "unknown",
+      "http_status": null,
+      "latency_ms": null,
+      "checked_at": null
+    },
+    {
+      "id": "boc",
+      "status": "unknown",
+      "http_status": null,
+      "latency_ms": null,
+      "checked_at": null
+    },
+    {
+      "id": "rba",
+      "status": "unknown",
+      "http_status": null,
+      "latency_ms": null,
+      "checked_at": null
+    },
+    {
+      "id": "riksbank",
+      "status": "unknown",
+      "http_status": null,
+      "latency_ms": null,
+      "checked_at": null
+    },
+    {
+      "id": "global-yields",
+      "status": "unknown",
+      "http_status": null,
+      "latency_ms": null,
+      "checked_at": null
+    }
+  ]
+}
