@@ -33,7 +33,7 @@ const description = 'Trace financial data from official source to normalized dat
     .canvas{position:relative;overflow:hidden;padding:34px 8px 50px 0}
     .canvas:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(115,245,165,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(115,245,165,.035) 1px,transparent 1px);background-size:36px 36px;mask-image:linear-gradient(to bottom,black,transparent 92%);pointer-events:none}
     .trail-head{display:flex;justify-content:space-between;gap:20px;align-items:start;position:relative;z-index:2;margin-bottom:40px}
-    .trail-title{font-size:22px;letter-spacing:-.02em}.trail-code{font:11px var(--mono);color:var(--muted);margin-top:7px}.trail-status{font:11px var(--mono);color:var(--green)}
+    .health-strip{display:flex;gap:20px;flex-wrap:wrap;padding:12px 0 0;font:10px var(--mono);color:var(--muted)}.health-strip b{font-weight:500;color:#b9c3bc}.health-live{color:var(--green)!important}.health-bad{color:var(--red)!important}.trail-title{font-size:22px;letter-spacing:-.02em}.trail-code{font:11px var(--mono);color:var(--muted);margin-top:7px}.trail-status{font:11px var(--mono);color:var(--green)}
     .graph{position:relative;z-index:2;display:grid;grid-template-columns:repeat(6,minmax(130px,1fr));gap:18px;align-items:start}
     .stage-label{font:10px var(--mono);letter-spacing:.12em;color:#5e6962;text-transform:uppercase;margin-bottom:13px}
     .node{position:relative;min-height:145px;border-top:1px solid #344039;padding:16px 12px 12px 0;cursor:pointer;transition:.2s ease}
@@ -77,6 +77,12 @@ const description = 'Trace financial data from official source to normalized dat
       <button id="dependencyBtn">Dependency map</button>
     </section>
 
+    <div class="health-strip" id="healthStrip">
+      <span>PIPELINE HEALTH <b id="healthState">loading…</b></span>
+      <span>LAST CHECK <b id="healthChecked">—</b></span>
+      <span>SOURCES <b id="healthCount">—</b></span>
+      <span>MODE <b>endpoint availability only</b></span>
+    </div>
     <section class="workspace">
       <div class="canvas">
         <div class="trail-head">
@@ -107,49 +113,49 @@ const description = 'Trace financial data from official source to normalized dat
 
 <script is:inline>
 const trails = [
- {id:"us10y",name:"United States 10-Year Treasury Yield",code:"RATES / US / 10Y / SOVEREIGN",category:"Rates",authority:"Federal Reserve / FRED",series:"DGS10",source:"https://fred.stlouisfed.org/series/DGS10",nodes:[
+ {id:"us10y",sourceKey:"fred-dgs10",name:"United States 10-Year Treasury Yield",code:"RATES / US / 10Y / SOVEREIGN",category:"Rates",authority:"Federal Reserve / FRED",series:"DGS10",source:"https://fred.stlouisfed.org/series/DGS10",nodes:[
   ["Official source","Federal Reserve / FRED","DGS10 · 10-Year Treasury Rate","official"],
   ["Raw series","DGS10 observation","Source-defined daily observation","official"],
   ["Validation","Freshness + numeric checks","Reject malformed / missing observations","derived"],
   ["Normalization","Yield normalization","Standardized sovereign-yield representation","derived"],
   ["BondStats dataset","global_yields.json","Master global sovereign-yield layer","derived"],
   ["Downstream use","Markets + stress tools","Yield views, comparisons and derived monitoring","derived"]]},
- {id:"de10y",name:"Germany 10-Year Government Bond Yield",code:"RATES / DE / 10Y / SOVEREIGN",category:"Rates",authority:"ECB / public fallback",series:"Germany 10Y",source:"https://data.ecb.europa.eu/",nodes:[
+ {id:"de10y",sourceKey:"ecb-data",name:"Germany 10-Year Government Bond Yield",code:"RATES / DE / 10Y / SOVEREIGN",category:"Rates",authority:"ECB / public fallback",series:"Germany 10Y",source:"https://data.ecb.europa.eu/",nodes:[
   ["Official source","ECB Data Portal","Euro-area public market data","official"],
   ["Raw series","Germany sovereign series","Source observation / mapped maturity","official"],
   ["Validation","Availability check","Freshness and missing-value controls","derived"],
   ["Normalization","Country + tenor mapping","DE / 10Y / percent","derived"],
   ["BondStats dataset","global_yields.json","Master global sovereign-yield layer","derived"],
   ["Downstream use","Yield tools","Global yields, spreads, stress and comparisons","derived"]]},
- {id:"ecb",name:"ECB Deposit Facility Rate",code:"CENTRAL BANKS / ECB / POLICY RATE",category:"Central Banks",authority:"European Central Bank",series:"Deposit facility",source:"https://data.ecb.europa.eu/",nodes:[
+ {id:"ecb",sourceKey:"ecb-policy",name:"ECB Deposit Facility Rate",code:"CENTRAL BANKS / ECB / POLICY RATE",category:"Central Banks",authority:"European Central Bank",series:"Deposit facility",source:"https://data.ecb.europa.eu/",nodes:[
   ["Official source","European Central Bank","ECB policy-rate publication","official"],
   ["Raw series","Deposit facility rate","Official policy-rate observation","official"],
   ["Validation","Date + value check","Policy-event consistency controls","derived"],
   ["Normalization","Policy-rate schema","Bank / instrument / effective date","derived"],
   ["BondStats dataset","Central Bank layer","Normalized central-bank policy record","derived"],
   ["Downstream use","Central Bank Watch","Policy history, decisions and monitoring","derived"]]},
- {id:"boe",name:"Bank of England Bank Rate",code:"CENTRAL BANKS / BOE / POLICY RATE",category:"Central Banks",authority:"Bank of England",series:"Bank Rate",source:"https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp",nodes:[
+ {id:"boe",sourceKey:"boe-bank-rate",name:"Bank of England Bank Rate",code:"CENTRAL BANKS / BOE / POLICY RATE",category:"Central Banks",authority:"Bank of England",series:"Bank Rate",source:"https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp",nodes:[
   ["Official source","Bank of England","Official Bank Rate database","official"],
   ["Raw series","Bank Rate","Published policy-rate history","official"],
   ["Validation","Date + value check","Policy observation controls","derived"],
   ["Normalization","Policy-rate schema","BoE / Bank Rate / effective date","derived"],
   ["BondStats dataset","Central Bank layer","Normalized policy record","derived"],
   ["Downstream use","Central Bank Watch","Rate monitoring and policy history","derived"]]},
- {id:"boc",name:"Bank of Canada Policy Rate",code:"CENTRAL BANKS / BOC / POLICY RATE",category:"Central Banks",authority:"Bank of Canada",series:"Policy interest rate",source:"https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/",nodes:[
+ {id:"boc",sourceKey:"boc-policy-rate",name:"Bank of Canada Policy Rate",code:"CENTRAL BANKS / BOC / POLICY RATE",category:"Central Banks",authority:"Bank of Canada",series:"Policy interest rate",source:"https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/",nodes:[
   ["Official source","Bank of Canada","Official key interest-rate publication","official"],
   ["Raw series","Policy rate","Official policy observation","official"],
   ["Validation","Date + value check","Publication consistency","derived"],
   ["Normalization","Policy-rate schema","BoC / policy rate / date","derived"],
   ["BondStats dataset","Central Bank layer","Normalized policy record","derived"],
   ["Downstream use","Central Bank Watch","Global policy comparison","derived"]]},
- {id:"rba",name:"Reserve Bank of Australia Cash Rate",code:"CENTRAL BANKS / RBA / CASH RATE",category:"Central Banks",authority:"Reserve Bank of Australia",series:"Cash Rate Target",source:"https://www.rba.gov.au/statistics/cash-rate/",nodes:[
+ {id:"rba",sourceKey:"rba-cash-rate",name:"Reserve Bank of Australia Cash Rate",code:"CENTRAL BANKS / RBA / CASH RATE",category:"Central Banks",authority:"Reserve Bank of Australia",series:"Cash Rate Target",source:"https://www.rba.gov.au/statistics/cash-rate/",nodes:[
   ["Official source","Reserve Bank of Australia","Official cash-rate statistics","official"],
   ["Raw series","Cash Rate Target","Published target rate","official"],
   ["Validation","Date + value check","Observation controls","derived"],
   ["Normalization","Policy-rate schema","RBA / cash rate / date","derived"],
   ["BondStats dataset","Central Bank layer","Normalized policy record","derived"],
   ["Downstream use","Central Bank Watch","Policy monitoring and history","derived"]]},
- {id:"riksbank",name:"Riksbank Policy Rate",code:"CENTRAL BANKS / SE / POLICY RATE",category:"Central Banks",authority:"Sveriges Riksbank",series:"Policy rate",source:"https://www.riksbank.se/en-gb/statistics/search-interest--exchange-rates/",nodes:[
+ {id:"riksbank",sourceKey:"riksbank-policy-rate",name:"Riksbank Policy Rate",code:"CENTRAL BANKS / SE / POLICY RATE",category:"Central Banks",authority:"Sveriges Riksbank",series:"Policy rate",source:"https://www.riksbank.se/en-gb/statistics/search-interest--exchange-rates/",nodes:[
   ["Official source","Sveriges Riksbank","Official interest-rate statistics","official"],
   ["Raw series","Policy rate","Published policy observation","official"],
   ["Validation","Date + value check","Observation controls","derived"],
@@ -178,7 +184,10 @@ function selectNode(i){
  <div class="field"><label>Trail</label><div>${current.code}</div></div>
  <div class="field"><label>Source authority</label><div>${current.authority}</div></div>
  <div class="field"><label>Series / identifier</label><div>${current.series}</div></div>
+ <div class="field"><label>Automated endpoint health</label><div id="nodeHealth">Checking registry…</div></div>
+ <div class="field"><label>Last automated check</label><div id="nodeChecked">—</div></div>
  <div class="field"><label>Primary reference</label><div><a href="${current.source}" target="_blank" rel="noopener">Open official source ↗</a></div></div>`;
+ updateNodeHealth();
 }
 function renderRows(filter=""){
  const q=filter.toLowerCase(); const list=trails.filter(t=>(t.name+" "+t.code+" "+t.category+" "+t.authority+" "+t.series).toLowerCase().includes(q));
@@ -189,7 +198,41 @@ function renderRows(filter=""){
 document.getElementById("search").addEventListener("input",e=>{renderRows(e.target.value);const q=e.target.value.toLowerCase();const hit=trails.find(t=>(t.name+" "+t.code+" "+t.series).toLowerCase().includes(q)&&q.length>2);if(hit)renderTrail(hit)});
 document.getElementById("traceBtn").onclick=()=>{mode="trace";document.getElementById("traceBtn").classList.add("active");document.getElementById("dependencyBtn").classList.remove("active");selectNode(selected)};
 document.getElementById("dependencyBtn").onclick=()=>{mode="dependency";document.getElementById("dependencyBtn").classList.add("active");document.getElementById("traceBtn").classList.remove("active");selectNode(selected)};
-renderTrail();renderRows();
+
+let healthSnapshot=null;
+function fmtTime(iso){
+ if(!iso) return "—";
+ try{return new Intl.DateTimeFormat(undefined,{dateStyle:"medium",timeStyle:"short"}).format(new Date(iso));}catch{return iso}
+}
+function updateNodeHealth(){
+ const el=document.getElementById("nodeHealth"), checked=document.getElementById("nodeChecked");
+ if(!el) return;
+ if(!healthSnapshot){el.textContent="Waiting for health snapshot…";return;}
+ const rec=healthSnapshot.sources?.find(x=>x.id===current.sourceKey);
+ if(!rec){el.textContent="Not mapped to automated health registry";return;}
+ el.textContent=rec.status==="reachable" ? `Reachable${rec.http_status ? ` · HTTP ${rec.http_status}`:""}${rec.latency_ms!=null ? ` · ${rec.latency_ms} ms`:""}` : `Unreachable${rec.http_status ? ` · HTTP ${rec.http_status}`:""}`;
+ el.className=rec.status==="reachable"?"health-live":"health-bad";
+ if(checked) checked.textContent=fmtTime(rec.checked_at);
+}
+async function loadHealth(){
+ try{
+   const r=await fetch("/data/lineage-health.json",{cache:"no-store"});
+   if(!r.ok) throw new Error("health unavailable");
+   healthSnapshot=await r.json();
+   const s=healthSnapshot.summary||{};
+   const state=document.getElementById("healthState");
+   state.textContent=s.unknown ? "awaiting first run" : `${s.reachable}/${s.total} reachable`;
+   state.className=s.unreachable>0?"health-bad":"health-live";
+   document.getElementById("healthChecked").textContent=fmtTime(healthSnapshot.generated_at);
+   document.getElementById("healthCount").textContent=String(s.total ?? "—");
+   updateNodeHealth();
+ }catch{
+   document.getElementById("healthState").textContent="snapshot unavailable";
+   document.getElementById("healthState").className="health-bad";
+ }
+}
+
+renderTrail();renderRows();loadHealth();
 </script>
 </body>
 </html>

@@ -1,22 +1,62 @@
-# BondStats — Financial Data Trail Explorer
+# BondStats — Financial Data Trail Explorer · Phase 2
 
-Distinct native Astro UI for tracing financial data from source to downstream BondStats use.
+Phase 2 adds a small automated provenance-health layer to the existing static Financial Data Trail Explorer.
+
+## What is automated
+
+A GitHub Actions workflow runs every six hours and checks whether mapped official/public source endpoints and the BondStats master yield dataset are reachable. It records only operational metadata:
+
+- endpoint reachable / unreachable
+- HTTP status
+- request latency
+- check timestamp
+- returned content type
+
+The generated snapshot is written to:
+
+`public/data/lineage-health.json`
+
+The explorer loads that file in the browser and displays current pipeline-health metadata in the UI.
+
+## What is deliberately NOT automated
+
+This version does **not** scrape, republish, cache, copy, or reproduce third-party charts, articles, logos, screenshots, branded interfaces, or substantial source content. It also does not invent observations, freshness scores, confidence ratings, or source values.
+
+The health job checks endpoint availability only. Actual financial observations remain linked to their official/public source or to BondStats-owned datasets.
+
+## Copyright / provenance policy
+
+All UI code, layout, wording, metadata schema and generated health records in this repo are original BondStats material.
+
+Third-party references are limited to:
+- factual institution/source names
+- series identifiers
+- public URLs
+- machine-generated HTTP metadata
+
+No third-party logos or artwork are bundled.
+
+## Workflow
+
+`.github/workflows/data-lineage-health.yml`
+
+Schedule:
+`17 */6 * * *`
+
+Manual run is also enabled through `workflow_dispatch`.
+
+## Local test
+
+```bash
+npm install
+npm run update:lineage
+npm run build
+```
 
 ## Route
+
 `/tools/developer-tools/financial-data-trail-explorer/`
 
-## UI
-This intentionally does **not** reuse the standard BondStats dashboard/card composition. It is a graph/canvas-style data-forensics interface with:
-- Trace mode
-- Dependency mode
-- Node inspector
-- Searchable mapped trail catalog
-- Source-authority links
-- Responsive mobile layout
+## Deployment note
 
-## Data policy
-V1 maps provenance/lineage relationships only. It does not fabricate live observations, timestamps, confidence scores, or freshness values.
-
-## Build
-`npm install`
-`npm run build`
+For the standalone GitHub repo, deploy this Astro project as usual. For the BondStats main site, copy the explorer route plus `public/data/lineage-health.json`; if the automation is to live in the main repo, also copy the registry, script and workflow.
