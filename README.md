@@ -60,3 +60,21 @@ npm run build
 ## Deployment note
 
 For the standalone GitHub repo, deploy this Astro project as usual. For the BondStats main site, copy the explorer route plus `public/data/lineage-health.json`; if the automation is to live in the main repo, also copy the registry, script and workflow.
+
+
+## GitHub Pages deployment
+
+This standalone repo is configured for GitHub Pages via GitHub Actions.
+
+In GitHub:
+1. Open `Settings → Pages`.
+2. Set **Source** to **GitHub Actions**.
+3. Push to `main` or run the `Deploy Astro to GitHub Pages` workflow manually.
+
+The repo includes `.nojekyll` to prevent the legacy Jekyll builder from processing Astro files.
+
+Expected Pages path:
+
+`/bondstats-financial-data-trail-explorer/`
+
+The health feed is loaded using Astro's `BASE_URL`, so it works correctly from the repository subpath.
