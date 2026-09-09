@@ -1,7 +1,7 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 
 const registryPath = new URL("../src/data/lineage-registry.json", import.meta.url);
-const outPath = new URL("../public/data/lineage-health.json", import.meta.url);
+const outPath = new URL("../docs/data/lineage-health.json", import.meta.url);
 const registry = JSON.parse(await readFile(registryPath, "utf8"));
 
 const TIMEOUT_MS = 15000;
@@ -76,6 +76,6 @@ const payload = {
   sources: results
 };
 
-await mkdir(new URL("../public/data/", import.meta.url), { recursive: true });
+await mkdir(new URL("../docs/data/", import.meta.url), { recursive: true });
 await writeFile(outPath, JSON.stringify(payload, null, 2) + "\n", "utf8");
 console.log(`Lineage health written: ${reachable}/${results.length} reachable`);
