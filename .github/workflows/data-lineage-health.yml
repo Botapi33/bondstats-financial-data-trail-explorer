@@ -1,0 +1,44 @@
+name: Financial Data Trail Health
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: financial-data-trail-health
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Update health snapshot
+        run: node scripts/update-lineage-health.mjs
+
+      - name: Commit changed snapshot
+        run: |
+          if git diff --quiet -- data/lineage-health.json; then
+            echo "No health changes."
+            exit 0
+          fi
+
+          git config user.name "bondstats-data-bot"
+          git config user.email "actions@users.noreply.github.com"
+
+          git add data/lineage-health.json
+          git commit -m "chore: update financial data trail health"
+          git push
