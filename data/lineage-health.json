@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-25T04:56:00.308Z",
+  "generated_at": "2026-09-25T11:48:54.150Z",
   "summary": {
     "total": 7,
-    "reachable": 6,
-    "unreachable": 1,
+    "reachable": 7,
+    "unreachable": 0,
     "unknown": 0
   },
   "sources": [
@@ -11,50 +11,50 @@
       "id": "us10y",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 165,
-      "checked_at": "2026-09-25T04:55:44.497Z"
+      "latency_ms": 362,
+      "checked_at": "2026-09-25T11:48:50.040Z"
     },
     {
       "id": "ecb",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 843,
-      "checked_at": "2026-09-25T04:55:45.592Z"
+      "latency_ms": 668,
+      "checked_at": "2026-09-25T11:48:50.958Z"
     },
     {
       "id": "boe",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 535,
-      "checked_at": "2026-09-25T04:55:46.377Z"
+      "latency_ms": 342,
+      "checked_at": "2026-09-25T11:48:51.551Z"
     },
     {
       "id": "boc",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 97,
-      "checked_at": "2026-09-25T04:55:46.724Z"
+      "latency_ms": 72,
+      "checked_at": "2026-09-25T11:48:51.873Z"
     },
     {
       "id": "rba",
-      "status": "unreachable",
-      "http_status": null,
-      "latency_ms": 12001,
-      "checked_at": "2026-09-25T04:55:58.975Z"
+      "status": "reachable",
+      "http_status": 200,
+      "latency_ms": 466,
+      "checked_at": "2026-09-25T11:48:52.588Z"
     },
     {
       "id": "riksbank",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 511,
-      "checked_at": "2026-09-25T04:55:59.736Z"
+      "latency_ms": 694,
+      "checked_at": "2026-09-25T11:48:53.532Z"
     },
     {
       "id": "global-yields",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 71,
-      "checked_at": "2026-09-25T04:56:00.058Z"
+      "latency_ms": 119,
+      "checked_at": "2026-09-25T11:48:53.900Z"
     }
   ]
 }
