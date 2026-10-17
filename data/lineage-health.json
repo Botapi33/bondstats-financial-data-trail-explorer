@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T10:40:51.224Z",
+  "generated_at": "2026-10-17T15:31:35.057Z",
   "summary": {
     "total": 7,
     "reachable": 7,
@@ -11,50 +11,50 @@
       "id": "us10y",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 225,
-      "checked_at": "2026-10-17T10:40:46.027Z"
+      "latency_ms": 278,
+      "checked_at": "2026-10-17T15:31:29.266Z"
     },
     {
       "id": "ecb",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 818,
-      "checked_at": "2026-10-17T10:40:47.096Z"
+      "latency_ms": 591,
+      "checked_at": "2026-10-17T15:31:30.107Z"
     },
     {
       "id": "boe",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 646,
-      "checked_at": "2026-10-17T10:40:47.993Z"
+      "latency_ms": 716,
+      "checked_at": "2026-10-17T15:31:31.074Z"
     },
     {
       "id": "boc",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 142,
-      "checked_at": "2026-10-17T10:40:48.384Z"
+      "latency_ms": 285,
+      "checked_at": "2026-10-17T15:31:31.609Z"
     },
     {
       "id": "rba",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 551,
-      "checked_at": "2026-10-17T10:40:49.185Z"
+      "latency_ms": 930,
+      "checked_at": "2026-10-17T15:31:32.788Z"
     },
     {
       "id": "riksbank",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 1165,
-      "checked_at": "2026-10-17T10:40:50.601Z"
+      "latency_ms": 1397,
+      "checked_at": "2026-10-17T15:31:34.435Z"
     },
     {
       "id": "global-yields",
       "status": "reachable",
       "http_status": 200,
-      "latency_ms": 124,
-      "checked_at": "2026-10-17T10:40:50.974Z"
+      "latency_ms": 120,
+      "checked_at": "2026-10-17T15:31:34.806Z"
     }
   ]
 }
